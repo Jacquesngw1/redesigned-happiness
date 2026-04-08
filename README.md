@@ -60,4 +60,4 @@ Client (Next.js) → API Gateway → FastAPI (Router/Tenant) → AI Orchestrator
 
 ---
 > **Maintainer:** Neuralis Black Core Team
-> **License:** Proprietary (Internal Use) | Contact: infra@neuralis.black
+> **License:** Proprietary (Internal Use) | Contact: initiate@neuralisblack.com
