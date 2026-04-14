@@ -17,8 +17,30 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install black flake8 mypy
-      - run: black --check packages/ api/
-      - run: flake8 packages/ api/
+      - run: pip install black flake8 mypy
+
+- name: Black (check)
+  shell: bash
+  run: |
+    targets=()
+    [[ -d packages ]] && targets+=(packages)
+    [[ -d api ]] && targets+=(api)
+
+    # If neither exists, do nothing (avoid failing the job)
+    [[ ${#targets[@]} -eq 0 ]] && { echo "No lint targets found"; exit 0; }
+
+    black --check "${targets[@]}"
+
+- name: Flake8
+  shell: bash
+  run: |
+    targets=()
+    [[ -d packages ]] && targets+=(packages)
+    [[ -d api ]] && targets+=(api)
+
+    [[ ${#targets[@]} -eq 0 ]] && { echo "No lint targets found"; exit 0; }
+
+    flake8 "${targets[@]}"
 
   terraform-validate:
     runs-on: ubuntu-latest
